@@ -15,9 +15,10 @@ private:
 
 public:
     Reserva(Agente *agente,Paquete *paquete,vector<Cliente *> clientes,Fecha caduca);
-    int GetCodigo();//
-    float MontoSenia();//
-    float MontoTotalPaquete(); //
+    int GetCodigo();
+    int GetCodigoAgente();
+    float MontoSenia();
+    float MontoTotalPaquete(); 
     float PagarReserva(float monto);
     bool GetConfirmacion(); // Verifica si la reserva fue pagada
     void AgregarCliente(Cliente * cliente);
@@ -25,7 +26,7 @@ public:
     Fecha GetFechaReserva();
     Fecha GetFechaCaduca();
     bool EstaActiva();
-    Agente * GetAgente();
+    //Agente * GetAgente();
     Paquete * GetPaquete();
     void ListarInfo();
     ~Reserva();

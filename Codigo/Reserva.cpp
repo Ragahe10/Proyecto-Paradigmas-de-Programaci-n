@@ -73,10 +73,10 @@ Fecha Reserva::GetFechaReserva()
 }
 
 
-Agente * Reserva::GetAgente()
+/*Agente * Reserva::GetAgente()
 {
     return _agente;
-}
+}*/
 
 Paquete * Reserva::GetPaquete()
 {
@@ -86,6 +86,11 @@ Paquete * Reserva::GetPaquete()
 Fecha Reserva::GetFechaCaduca()
 {
     return _caducaReserva;
+}
+
+int Reserva::GetCodigoAgente()
+{
+    return _agente->GetCodigo();
 }
 
 bool Reserva::EstaActiva()

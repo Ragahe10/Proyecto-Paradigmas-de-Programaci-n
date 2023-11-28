@@ -119,7 +119,7 @@ float Sistema::BonificacionAgente(int codAgente)
     float comision = 0;
     for (Reserva * R: _reservas)
     {
-        if (R->GetConfirmacion() && R->GetAgente()->GetCodigo() == codAgente)
+        if (R->GetConfirmacion() && R->GetCodigoAgente() == codAgente)
         {
             comision += R->MontoTotalPaquete()*0.1;
         }
@@ -150,7 +150,7 @@ void Sistema::EliminarReservasVencidas()
     } 
 }
 
-int Sistema::CantidadReservas()
+int Sistema::GetCantidadReservas()
 {
     return _reservas.size();
 }

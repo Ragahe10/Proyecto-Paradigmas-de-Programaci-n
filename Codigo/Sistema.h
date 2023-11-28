@@ -18,7 +18,7 @@ public:
     float BonificacionAgente(int codAgente);
     void ListaInfoReservaByCodigo(int codReserva);
     void EliminarReservasVencidas();
-    int CantidadReservas();
+    int GetCantidadReservas();
     ~Sistema();
 };
 

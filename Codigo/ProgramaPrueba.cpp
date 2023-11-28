@@ -62,7 +62,7 @@ int main()
     MiSistema.RealizarReserva(&Lucas, 1, nuevosCli, Fecha(26, 11, 2023)); // reserva ya caducada
     MiSistema.RealizarReserva(&Lucas, 2, nuevosCli, Fecha(30, 11, 2023)); //Reserva para cancelar
 
-    for (int i = 1; i <= MiSistema.CantidadReservas(); i++)
+    for (int i = 1; i <= MiSistema.GetCantidadReservas(); i++)
     {
         MiSistema.ListaInfoReservaByCodigo(i);
         cout << "\n";
@@ -83,7 +83,7 @@ int main()
     
     cout << "Vuelvo a mostrar\n";
 
-    for (int i = 1; i <= MiSistema.CantidadReservas(); i++)
+    for (int i = 1; i <= MiSistema.GetCantidadReservas(); i++)
     {
         MiSistema.ListaInfoReservaByCodigo(i);
         cout << "\n";
