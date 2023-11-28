@@ -16,7 +16,7 @@ _reserva(Fecha()), _caducaReserva(caduca)
 
 float Reserva::MontoSenia()
 {
-    return _paquete->MontoAPagar(_clientes) * 0.30;
+    return MontoTotalPaquete() * 0.30;
 }
 
 float Reserva::MontoTotalPaquete()

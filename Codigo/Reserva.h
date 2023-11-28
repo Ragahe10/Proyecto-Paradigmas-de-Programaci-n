@@ -15,9 +15,9 @@ private:
 
 public:
     Reserva(Agente *agente,Paquete *paquete,vector<Cliente *> clientes,Fecha caduca);
-    int GetCodigo();
-    float MontoSenia();
-    float MontoTotalPaquete(); 
+    int GetCodigo();//
+    float MontoSenia();//
+    float MontoTotalPaquete(); //
     float PagarReserva(float monto);
     bool GetConfirmacion(); // Verifica si la reserva fue pagada
     void AgregarCliente(Cliente * cliente);

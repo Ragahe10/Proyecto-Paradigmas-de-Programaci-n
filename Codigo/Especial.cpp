@@ -23,11 +23,6 @@ string Especial::GetTipo()
     return "Especial";
 }
 
-bool Especial::HayCupo(int CantClientes)
-{
-    return true;
-}
-
 void Especial::ListarInfo(vector<Cliente *> clientes)
 {
     Paquete::ListarInfo(clientes);

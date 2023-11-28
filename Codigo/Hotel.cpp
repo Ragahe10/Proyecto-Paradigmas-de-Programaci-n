@@ -5,12 +5,12 @@ Hotel::Hotel(string nombre, string ubicacion, Fecha checkIn, Fecha checkOut, flo
     _nombre = nombre;
     _ubicacion = ubicacion;
     _cantidadNoches = checkOut - checkIn;
-    _precio = precio;
+    _precioNoche = precio;
 }
 
 float Hotel::GetMonto(vector<Cliente *> clientes)
 {
-    return _cantidadNoches * _precio * clientes.size();
+    return _cantidadNoches * _precioNoche * clientes.size();
 }
 
 void Hotel::ListarInfo(vector<Cliente*> clientes)

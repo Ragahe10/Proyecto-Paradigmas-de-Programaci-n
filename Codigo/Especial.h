@@ -11,7 +11,6 @@ public:
     float MontoAPagar(vector<Cliente*> clientes);
     string GetTipo();
     void ListarInfo(vector<Cliente*> clientes);
-    bool HayCupo(int CantClientes);
     ~Especial();
 };
 

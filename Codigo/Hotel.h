@@ -8,7 +8,7 @@ private:
     Fecha _check_in;
     Fecha _check_out;
     int _cantidadNoches;
-    float _precio;
+    float _precioNoche;
 public:
     Hotel(string nombre, string ubicacion, Fecha checkIn, Fecha checkOut,float precio);
     float GetMonto(vector<Cliente*> clientes);
