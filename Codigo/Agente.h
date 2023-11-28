@@ -14,10 +14,5 @@ public:
     ~Agente();
 };
 
-void Agente::ListarInfo()
-{
-    cout<<"\t-Codigo agente:"<<_codigo<<endl;
-    cout<<"\t-Nombre: "<< _nombre <<_apellido<<endl;
-}
 
 

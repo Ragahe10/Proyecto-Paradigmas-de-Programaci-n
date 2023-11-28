@@ -34,7 +34,7 @@ void Sistema::RealizarReserva(Agente *agente, int codPaquete, vector<Cliente *> 
 {
     Paquete *paquete = buscarPaquete(codPaquete);
 
-    if (paquete && paquete->HayCupo(clientes.size()))
+    if (paquete && paquete->HayCupo(clientes.size()))//preguntar si mostrar los mensajes 
     {
         Reserva *nuevaReserva = new Reserva(agente, paquete, clientes, caduca);
         _reservas.push_back(nuevaReserva);
@@ -86,6 +86,8 @@ bool Sistema::CancelarReserva(int codReserva)
     {
         if ((*it)->GetCodigo() == codReserva)
         {
+            int cantClientesReserva = (*it)->GetCantidadClientes();
+            (*it)->GetPaquete()->ActualizarCupo(-cantClientesReserva);
             it = _reservas.erase(it);
             return true;
         }
@@ -146,6 +148,11 @@ void Sistema::EliminarReservasVencidas()
             CancelarReserva(R->GetCodigo());
         }
     } 
+}
+
+int Sistema::CantidadReservas()
+{
+    return _reservas.size();
 }
 
 Sistema::~Sistema()

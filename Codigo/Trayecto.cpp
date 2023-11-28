@@ -19,10 +19,10 @@ float Trayecto::GetCosto()
 
 void Trayecto::ListarInfo()
 {
-    cout<<"\t-Codigo trayecto:"<< _codigo<<endl;
-    cout<<"\t-Origen:"<< _ciuedadOrigen <<endl;
-    cout<<"\t-Destino:"<< _ciudadDestino <<endl;
-    cout<<"\t-Cantidad de dias:"<< _cantidadDeDias <<endl;
+    cout<<"\t-Codigo trayecto: "<< _codigo<<endl;
+    cout<<"\t-Origen: "<< _ciuedadOrigen <<endl;
+    cout<<"\t-Destino: "<< _ciudadDestino <<endl;
+    cout<<"\t-Cantidad de dias: "<< _cantidadDeDias <<endl;
     cout<<"\t-Precio unitario -----> $"<< _costo <<endl;
 }
 

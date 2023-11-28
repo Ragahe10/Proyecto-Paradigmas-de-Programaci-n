@@ -8,17 +8,14 @@ private:
     int _cantidadDias;
     Fecha _salida;
     int _cupoMax;
+    int _cupoRestante;
     float _descuento;
-    
-    void ActualizarCupo(int cantClientes);
-
 public:
-    Propio(string destino, vector<Trayecto*> trayectos,Fecha salida, int cupo, float descuento);
+    Propio(string destino, vector<Trayecto *> trayectos, Fecha salida, int cupo, float descuento);
     float MontoAPagar(vector<Cliente *> clientes);
     string GetTipo();
-    void ListarInfo(vector<Cliente*> clientes);
+    void ListarInfo(vector<Cliente *> clientes);
     bool HayCupo(int CantClientes);
+    void ActualizarCupo(int cantClientes);
     ~Propio();
 };
-
-

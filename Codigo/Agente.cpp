@@ -15,6 +15,13 @@ int Agente::GetCodigo()
     return _codigo;
 }
 
+void Agente::ListarInfo()
+{
+    cout<<"\t-Codigo agente: "<<_codigo<<endl;
+    cout<<"\t-Nombre: "<< _nombre<<" "<<_apellido<<endl;
+}
+
+
 Agente::~Agente()
 {
 }

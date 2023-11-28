@@ -24,6 +24,8 @@ bool Paquete::HayCupo(int CantClientes)
     return true;
 }
 
+void Paquete::ActualizarCupo(int cantClientes){ }
+
 Paquete::~Paquete()
 {
 }

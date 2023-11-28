@@ -6,6 +6,7 @@ Propio::Propio(string destino, vector<Trayecto *> trayectos, Fecha salida, int c
     _trayectos = trayectos;
     _salida = salida;
     _cupoMax = cupo;
+    _cupoRestante = cupo;
     _descuento = descuento;
     for (Trayecto * T : trayectos)
     {
@@ -34,13 +35,13 @@ string Propio::GetTipo()
 
 void Propio::ActualizarCupo(int cantClientes)
 {
-    _cupoMax -= cantClientes;
+    _cupoRestante -= cantClientes;
 }
 
 bool Propio::HayCupo(int CantClientes)
 {
     bool cupoDisponible = false;
-    if (_cupoMax >= CantClientes)
+    if (_cupoRestante >= CantClientes)
     {
         cupoDisponible = true;
         ActualizarCupo(CantClientes);
@@ -52,9 +53,10 @@ void Propio::ListarInfo(vector<Cliente *> clientes)
 {
     Paquete::ListarInfo(clientes);
     cout << "-Destino: " << _destino << endl;
-    cout << "-Cupo Maximo:" << _cupoMax << endl;
+    cout << "-Cupo Maximo: " << _cupoMax << endl;
+    cout << "-Cupo Restante: "<< _cupoRestante<< endl;
     cout << "-Fecha de salida: " << _salida << endl;
-    cout << "-Trayectos:" << endl;
+    cout << "-Trayectos: " << endl;
     for (Trayecto *T : _trayectos)
     {
         T->ListarInfo();

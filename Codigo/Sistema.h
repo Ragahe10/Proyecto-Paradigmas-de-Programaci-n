@@ -1,14 +1,13 @@
 #include "Reserva.cpp"
-#include "list"
 
 class Sistema
 {
 private:
     vector<Paquete *> _paquetes;
     vector<Reserva *> _reservas;
-
     Paquete *buscarPaquete(int codPaquete);
     Reserva *buscarReserva(int codReserva);
+    //consultar si el listado de agente lo ponemos aquí 
 public:
     Sistema(vector<Paquete *> paquetes);
     void RealizarReserva(Agente *agente, int codPaquete, vector<Cliente *> clientes, Fecha caduca);
@@ -23,7 +22,3 @@ public:
     ~Sistema();
 };
 
-int Sistema::CantidadReservas()
-{
-    return _reservas.size();
-}

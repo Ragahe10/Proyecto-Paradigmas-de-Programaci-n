@@ -88,9 +88,20 @@ Fecha Reserva::GetFechaCaduca()
     return _caducaReserva;
 }
 
+bool Reserva::EstaActiva()
+{
+    Fecha fechaActual;
+    return _caducaReserva >= fechaActual ? true : false; 
+}
+
+int Reserva::GetCantidadClientes()
+{
+    return _clientes.size();
+}
+
 void Reserva::ListarInfo()
 {
-    cout<<"---------- Informacio Reserva ----------"<<endl;
+    cout<<"\n***** ---------- _ _ _ Informacion Reserva _ _ _ ---------- *****"<<endl;
     cout<<"-Codigo Reserva: "<<_codigo<<endl;
     cout<<"-Fecha: "<< _reserva <<endl;
     cout<<"-Agente: "<<endl;
@@ -98,18 +109,18 @@ void Reserva::ListarInfo()
     cout<<"\n";
     _paquete->ListarInfo(_clientes);
     cout<<"\n";
-    cout<<"-Listado de Pasajeros:"<<endl;
+    cout<<"-Listado de Pasajeros: "<<endl;
     for (Cliente * cli : _clientes)
     {
         cli->ListarInfo();
         cout<<"\n";
     }
     cout<<"-Fecha caducidad: "<<_caducaReserva<<endl;
-    cout<<"-Monto senia minima         ------>$"<< MontoSenia()<<endl;
-    cout<<"-Monto pagado               ------>$"<<_montoPagado<<endl;
-    cout<<"-Faltante senia minima      ------>$"<< MontoSenia() - _montoPagado<<endl;
-    cout<<"-Faltante confirmar reserva ------>$"<< MontoTotalPaquete() - _montoPagado<<endl;
-    cout<<"_ ----- ------ ------ ------ ----- ------ ------ ------ ------ _"<<endl;
+    cout<<"-Monto senia minima         ------> $"<< MontoSenia()<<endl;
+    cout<<"-Monto pagado               ------> $"<<_montoPagado<<endl;
+    cout<<"-Faltante senia minima      ------> $"<< MontoSenia() - _montoPagado<<endl;
+    cout<<"-Faltante confirmar reserva ------> $"<< MontoTotalPaquete() - _montoPagado<<endl;
+    cout<<"_ ----- ------ ------ ------ ----- ----- ------ ------ ------ ------ _"<<endl;
 }
 
 Reserva::~Reserva()

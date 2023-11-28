@@ -21,6 +21,7 @@ public:
     float PagarReserva(float monto);
     bool GetConfirmacion(); // Verifica si la reserva fue pagada
     void AgregarCliente(Cliente * cliente);
+    int GetCantidadClientes();
     Fecha GetFechaReserva();
     Fecha GetFechaCaduca();
     bool EstaActiva();
@@ -30,8 +31,5 @@ public:
     ~Reserva();
 };
 
-bool Reserva::EstaActiva()
-{
-    Fecha fechaActual;
-    return _caducaReserva >= fechaActual ? true : false; 
-}
+
+
