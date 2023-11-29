@@ -89,7 +89,7 @@ int main()
         cout << "\n";
     }
 
-    cout << "Bonificacion Lucas:" << MiSistema.BonificacionAgente(1) << endl;
+    cout << "Bonificacion Lucas:" << MiSistema.BonificacionAgente(1,11,2023) << endl;
     cout << "Recaudacion men 11/2023: " << MiSistema.RecudacionMensual(11, 2023) << endl;
 
     return 0;

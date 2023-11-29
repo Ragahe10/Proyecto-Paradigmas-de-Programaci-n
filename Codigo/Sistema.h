@@ -15,7 +15,7 @@ public:
     void AgregarClientesReserva(vector<Cliente *> clientes, int codReserva);
     bool CancelarReserva(int codReserva);
     float RecudacionMensual(int mes, int anio);
-    float BonificacionAgente(int codAgente);
+    float BonificacionAgente(int codAgente, int mes, int year);
     void ListaInfoReservaByCodigo(int codReserva);
     void EliminarReservasVencidas();
     int GetCantidadReservas();

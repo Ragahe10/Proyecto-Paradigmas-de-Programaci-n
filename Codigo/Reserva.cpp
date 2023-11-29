@@ -2,8 +2,7 @@
 
 int Reserva::autonumerico = 0;
 
-Reserva::Reserva(Agente *agente,Paquete *paquete,vector<Cliente *> clientes,Fecha caduca): 
-_reserva(Fecha()), _caducaReserva(caduca)
+Reserva::Reserva(Agente *agente, Paquete *paquete, vector<Cliente *> clientes, Fecha caduca) : _reserva(Fecha()), _caducaReserva(caduca)
 {
     autonumerico++;
     _codigo = autonumerico;
@@ -50,6 +49,37 @@ float Reserva::PagarReserva(float monto)
     return MontoTotalPaquete() - _montoPagado; // le decimos cuando talta pagar
 }
 
+void Reserva::AgregarCliente(Cliente *cliente)
+{
+    _clientes.push_back(cliente);
+}
+
+int Reserva::GetCantidadClientes()
+{
+    return _clientes.size();
+}
+
+Fecha Reserva::GetFechaReserva()
+{
+    return _reserva;
+}
+
+int Reserva::GetCodigoAgente()
+{
+    return _agente->GetCodigo();
+}
+
+Fecha Reserva::GetFechaCaduca()
+{
+    return _caducaReserva;
+}
+
+bool Reserva::EstaActiva()
+{
+    Fecha fechaActual;
+    return _caducaReserva >= fechaActual ? true : false;
+}
+
 bool Reserva::GetConfirmacion()
 {
     if (MontoTotalPaquete() <= _montoPagado)
@@ -59,73 +89,43 @@ bool Reserva::GetConfirmacion()
     return _confirmacion;
 }
 
-
-void Reserva::AgregarCliente(Cliente *cliente)
+bool Reserva::HayCupo(int cantClientes)
 {
-    _clientes.push_back(cliente);   
+    return _paquete->HayCupo(cantClientes);
 }
 
-
-
-Fecha Reserva::GetFechaReserva()
+void Reserva::ActualizarCupo(int cantClientes)
 {
-    return _reserva;
+    _paquete->ActualizarCupo(cantClientes);
 }
 
-
-/*Agente * Reserva::GetAgente()
+string Reserva::GetTipo()
 {
-    return _agente;
-}*/
-
-Paquete * Reserva::GetPaquete()
-{
-    return _paquete;
-}
-
-Fecha Reserva::GetFechaCaduca()
-{
-    return _caducaReserva;
-}
-
-int Reserva::GetCodigoAgente()
-{
-    return _agente->GetCodigo();
-}
-
-bool Reserva::EstaActiva()
-{
-    Fecha fechaActual;
-    return _caducaReserva >= fechaActual ? true : false; 
-}
-
-int Reserva::GetCantidadClientes()
-{
-    return _clientes.size();
+    return _paquete->GetTipo();
 }
 
 void Reserva::ListarInfo()
 {
-    cout<<"\n***** ---------- _ _ _ Informacion Reserva _ _ _ ---------- *****"<<endl;
-    cout<<"-Codigo Reserva: "<<_codigo<<endl;
-    cout<<"-Fecha: "<< _reserva <<endl;
-    cout<<"-Agente: "<<endl;
+    cout << "\n***** ---------- _ _ _ Informacion Reserva _ _ _ ---------- *****" << endl;
+    cout << "-Codigo Reserva: " << _codigo << endl;
+    cout << "-Fecha: " << _reserva << endl;
+    cout << "-Agente: " << endl;
     _agente->ListarInfo();
-    cout<<"\n";
+    cout << "\n";
     _paquete->ListarInfo(_clientes);
-    cout<<"\n";
-    cout<<"-Listado de Pasajeros: "<<endl;
-    for (Cliente * cli : _clientes)
+    cout << "\n";
+    cout << "-Listado de Pasajeros: " << endl;
+    for (Cliente *cli : _clientes)
     {
         cli->ListarInfo();
-        cout<<"\n";
+        cout << "\n";
     }
-    cout<<"-Fecha caducidad: "<<_caducaReserva<<endl;
-    cout<<"-Monto senia minima         ------> $"<< MontoSenia()<<endl;
-    cout<<"-Monto pagado               ------> $"<<_montoPagado<<endl;
-    cout<<"-Faltante senia minima      ------> $"<< MontoSenia() - _montoPagado<<endl;
-    cout<<"-Faltante confirmar reserva ------> $"<< MontoTotalPaquete() - _montoPagado<<endl;
-    cout<<"_ ----- ------ ------ ------ ----- ----- ------ ------ ------ ------ _"<<endl;
+    cout << "-Fecha caducidad: " << _caducaReserva << endl;
+    cout << "-Monto senia minima         ------> $" << MontoSenia() << endl;
+    cout << "-Monto pagado               ------> $" << _montoPagado << endl;
+    cout << "-Faltante senia minima      ------> $" << MontoSenia() - _montoPagado << endl;
+    cout << "-Faltante confirmar reserva ------> $" << MontoTotalPaquete() - _montoPagado << endl;
+    cout << "_ ----- ------ ------ ------ ----- ----- ------ ------ ------ ------ _" << endl;
 }
 
 Reserva::~Reserva()

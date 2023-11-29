@@ -1,5 +1,10 @@
 #include "Sistema.h"
 
+Sistema::Sistema(vector<Paquete *> paquetes)
+{
+    _paquetes = paquetes;
+}
+
 Paquete *Sistema::buscarPaquete(int codPaquete)
 {
     for (Paquete *P : _paquetes)
@@ -25,16 +30,11 @@ Reserva *Sistema::buscarReserva(int codReserva)
     return nullptr;
 }
 
-Sistema::Sistema(vector<Paquete *> paquetes)
-{
-    _paquetes = paquetes;
-}
-
 void Sistema::RealizarReserva(Agente *agente, int codPaquete, vector<Cliente *> clientes, Fecha caduca)
 {
     Paquete *paquete = buscarPaquete(codPaquete);
 
-    if (paquete && paquete->HayCupo(clientes.size()))//preguntar si mostrar los mensajes 
+    if (paquete && paquete->HayCupo(clientes.size())) // preguntar si mostrar los mensajes
     {
         Reserva *nuevaReserva = new Reserva(agente, paquete, clientes, caduca);
         _reservas.push_back(nuevaReserva);
@@ -46,31 +46,37 @@ void Sistema::PagarReserva(float monto, int codReserva)
     Fecha fechaActual;
     Reserva *reserva = buscarReserva(codReserva);
 
-    if (reserva->EstaActiva())
+    if (reserva)
     {
-        float saldo = reserva->PagarReserva(monto);
-
-        if (saldo == -1)
+        if (reserva->EstaActiva())
         {
-            cout << "Monto insuficiente para realizar seña" << endl;
+            float saldo = reserva->PagarReserva(monto);
+
+            if (saldo == -1)
+            {
+                cout << "Monto insuficiente para realizar seña" << endl;
+            }
+            else
+            {
+                cout << "Saldo restante para confirmar reserva:" << saldo << endl;
+            }
         }
         else
         {
-            cout << "Saldo restante para confirmar reserva:" << saldo << endl;
+            cout << "La reserva Caduco el dia:" << reserva->GetFechaCaduca() << endl;
         }
     }
     else
     {
-        cout << "La reserva Caduco el dia:" << reserva->GetFechaCaduca() << endl;
+        cout << "No existe reserva" << endl;
     }
-
 }
 
 void Sistema::AgregarClientesReserva(vector<Cliente *> clientes, int codReserva)
 {
     Reserva *reserva = buscarReserva(codReserva);
 
-    if (reserva && reserva->EstaActiva()  && reserva->GetPaquete()->HayCupo(clientes.size()))
+    if (reserva && reserva->EstaActiva() && reserva->HayCupo(clientes.size()))
     {
         for (Cliente *C : clientes)
         {
@@ -86,8 +92,8 @@ bool Sistema::CancelarReserva(int codReserva)
     {
         if ((*it)->GetCodigo() == codReserva)
         {
-            int cantClientesReserva = (*it)->GetCantidadClientes();
-            (*it)->GetPaquete()->ActualizarCupo(-cantClientesReserva);
+            int cantidadClientes = (*it)->GetCantidadClientes();
+            (*it)->ActualizarCupo(-cantidadClientes);
             it = _reservas.erase(it);
             return true;
         }
@@ -102,26 +108,29 @@ float Sistema::RecudacionMensual(int mes, int anio)
     {
         if (R->GetConfirmacion() && (R->GetFechaReserva().getMes() == mes && R->GetFechaReserva().getAnio() == anio))
         {
-            if (R->GetPaquete()->GetTipo() == "Propio")
+            if (R->GetTipo() == "Propio")
             {
-                totalMes += R->MontoTotalPaquete()*0.15;
-            }else
+                totalMes += R->MontoTotalPaquete() * 0.15;
+            }
+            else
             {
-                totalMes += R->MontoTotalPaquete()*0.30;
+                totalMes += R->MontoTotalPaquete() * 0.30;
             }
         }
     }
     return totalMes;
 }
 
-float Sistema::BonificacionAgente(int codAgente)
+//aqui quede
+
+float Sistema::BonificacionAgente(int codAgente, int mes, int year)
 {
     float comision = 0;
-    for (Reserva * R: _reservas)
+    for (Reserva *R : _reservas)
     {
-        if (R->GetConfirmacion() && R->GetCodigoAgente() == codAgente)
+        if (R->GetConfirmacion() && R->GetCodigoAgente() == codAgente && (R->GetFechaReserva().getMes() == mes && R->GetFechaReserva().getAnio() == year))
         {
-            comision += R->MontoTotalPaquete()*0.1;
+            comision += R->MontoTotalPaquete() * 0.1;
         }
     }
     return comision;
@@ -129,25 +138,26 @@ float Sistema::BonificacionAgente(int codAgente)
 
 void Sistema::ListaInfoReservaByCodigo(int codReserva)
 {
-    Reserva * reserva = buscarReserva(codReserva);
+    Reserva *reserva = buscarReserva(codReserva);
     if (reserva)
     {
-       reserva->ListarInfo(); 
-    }else
+        reserva->ListarInfo();
+    }
+    else
     {
-        cout<<"NO SE ENCONTRO RESERVA"<<endl;
+        cout << "NO SE ENCONTRO RESERVA" << endl;
     }
 }
 
 void Sistema::EliminarReservasVencidas()
 {
-    for (Reserva * R : _reservas)
+    for (Reserva *R : _reservas)
     {
         if (!R->EstaActiva())
         {
             CancelarReserva(R->GetCodigo());
         }
-    } 
+    }
 }
 
 int Sistema::GetCantidadReservas()
@@ -157,7 +167,7 @@ int Sistema::GetCantidadReservas()
 
 Sistema::~Sistema()
 {
-    for (Reserva * R : _reservas)
+    for (Reserva *R : _reservas)
     {
         delete R;
     }

@@ -14,23 +14,22 @@ private:
     Agente *_agente;
 
 public:
-    Reserva(Agente *agente,Paquete *paquete,vector<Cliente *> clientes,Fecha caduca);
-    int GetCodigo();
-    int GetCodigoAgente();
+    Reserva(Agente *agente, Paquete *paquete, vector<Cliente *> clientes, Fecha caduca);
     float MontoSenia();
-    float MontoTotalPaquete(); 
+    float MontoTotalPaquete();
+    int GetCodigo();
     float PagarReserva(float monto);
-    bool GetConfirmacion(); // Verifica si la reserva fue pagada
-    void AgregarCliente(Cliente * cliente);
+    void AgregarCliente(Cliente *cliente);
     int GetCantidadClientes();
     Fecha GetFechaReserva();
+    int GetCodigoAgente();
     Fecha GetFechaCaduca();
-    bool EstaActiva();
-    //Agente * GetAgente();
-    Paquete * GetPaquete();
     void ListarInfo();
+    bool EstaActiva();
+    bool GetConfirmacion(); // Verifica si la reserva fue pagada
+    bool HayCupo(int cantClientes);
+    void ActualizarCupo(int cantClientes);
+    string GetTipo();
     ~Reserva();
 };
-
-
 
