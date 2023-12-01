@@ -1,4 +1,6 @@
 #include "Reserva.h"
+#include "Agente.h"
+
 
 int Reserva::autonumerico = 0;
 
@@ -26,6 +28,11 @@ float Reserva::MontoTotalPaquete()
 int Reserva::GetCodigo()
 {
     return _codigo;
+}
+
+float Reserva::GetGanancia()
+{
+    return MontoTotalPaquete()*_paquete->GetComision();
 }
 
 float Reserva::PagarReserva(float monto)
@@ -64,20 +71,20 @@ Fecha Reserva::GetFechaReserva()
     return _reserva;
 }
 
-int Reserva::GetCodigoAgente()
+/*int Reserva::GetCodigoAgente()
 {
     return _agente->GetCodigo();
-}
+}*/
 
 Fecha Reserva::GetFechaCaduca()
 {
     return _caducaReserva;
 }
 
-bool Reserva::EstaActiva()
+bool Reserva::EstaVigente()
 {
     Fecha fechaActual;
-    return _caducaReserva >= fechaActual ? true : false;
+    return _caducaReserva >= fechaActual;
 }
 
 bool Reserva::GetConfirmacion()
@@ -106,11 +113,8 @@ string Reserva::GetTipo()
 
 void Reserva::ListarInfo()
 {
-    cout << "\n***** ---------- _ _ _ Informacion Reserva _ _ _ ---------- *****" << endl;
     cout << "-Codigo Reserva: " << _codigo << endl;
     cout << "-Fecha: " << _reserva << endl;
-    cout << "-Agente: " << endl;
-    _agente->ListarInfo();
     cout << "\n";
     _paquete->ListarInfo(_clientes);
     cout << "\n";

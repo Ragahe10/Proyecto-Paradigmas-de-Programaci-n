@@ -1,5 +1,7 @@
 #include "Propio.h"
 
+float Propio::_comision = 0.15;
+
 Propio::Propio(string destino, vector<Trayecto *> trayectos, Fecha salida, int cupo, float descuento) : Paquete(),_cantidadDias(0)
 {
     _destino = destino;
@@ -47,6 +49,11 @@ bool Propio::HayCupo(int CantClientes)
         ActualizarCupo(CantClientes);
     }
     return cupoDisponible;
+}
+
+float Propio::GetComision()
+{
+    return _comision;
 }
 
 void Propio::ListarInfo(vector<Cliente *> clientes)

@@ -4,6 +4,11 @@ int main()
 {
     // Agentes:
     Agente Lucas("Lucas", "Alarcon");
+    Agente Martin("Martin", "Catan");
+
+    vector<Agente *> agentes;
+    agentes.push_back(&Lucas);
+    agentes.push_back(&Martin);
 
     // Clientes:
     Cliente JuanRuiz("Juan", "Ruiz", 111222, Fecha(1, 1, 2000), "123456");
@@ -19,19 +24,17 @@ int main()
     vector<Cliente *> nuevosCli;
     nuevosCli.push_back(&NicoP);
 
-    // Paquete Propio:
+    // Trayectos
     Trayecto trayecto1("Tucuman", "Cordoba", 3, 1500);
     Trayecto trayecto2("Cordoba", "Bs.As", 3, 1000);
     Trayecto trayecto3("Bs.As", "Bariloche", 3, 1800);
 
-    vector<Trayecto *> trayectoTuc_Bar;
-    trayectoTuc_Bar.push_back(&trayecto1);
-    trayectoTuc_Bar.push_back(&trayecto2);
-    trayectoTuc_Bar.push_back(&trayecto3);
+    vector<Trayecto *> trayectos;
+    trayectos.push_back(&trayecto1);
+    trayectos.push_back(&trayecto2);
+    trayectos.push_back(&trayecto3);
 
-    Propio tourTuc_Bariloche("Bariloche", trayectoTuc_Bar, Fecha(15, 01, 2024), 50, 0.15);
-
-    // Paquete Especial
+    // Contrataciones
     Hotel LasSierras("Los Sierras", "Cordoba", Fecha(1, 1, 2024), Fecha(15, 1, 2024), 1500);
     Vuelo Vuelo01("Fly Emirates", "Guille Valle", Fecha(1, 1, 2024), Fecha(15, 1, 2024), Hora(15, 30, 0), Hora(10, 0, 0), 1000, 1200);
 
@@ -39,58 +42,58 @@ int main()
     contrataciones.push_back(&LasSierras);
     contrataciones.push_back(&Vuelo01);
 
+    // Paquetes
+    Propio tourTuc_Bariloche("Bariloche", trayectos, Fecha(15, 01, 2024), 50, 0.15);
     Especial ViajeCordoba(contrataciones);
 
-    // Vector de Paquetes:
     vector<Paquete *> paquetes;
     paquetes.push_back(&tourTuc_Bariloche);
     paquetes.push_back(&ViajeCordoba);
 
     // Prueba del Sistema:
-    Sistema MiSistema(paquetes);
+    Sistema MiSistema(paquetes, agentes, trayectos);
 
-    MiSistema.RealizarReserva(&Lucas, 1, clientes, Fecha(30, 12, 2023)); // Reserva paquete propio
+    MiSistema.RealizarReserva(1, 1, clientes, Fecha(30, 12, 2023)); // Reserva paquete propio
     MiSistema.AgregarClientesReserva(nuevosCli, 1);
     MiSistema.PagarReserva(14620, 1);
 
-    MiSistema.RealizarReserva(&Lucas, 2, clientes, Fecha(30, 12, 2023)); // reserva paquete especial
+    MiSistema.RealizarReserva(1, 2, clientes, Fecha(30, 12, 2023)); // reserva paquete especial
     MiSistema.AgregarClientesReserva(nuevosCli, 2);
     MiSistema.PagarReserva(115440, 2);
 
-    // Prubea de funciones del sistema:
+    MiSistema.RealizarReserva(1, 1, nuevosCli, Fecha(26, 11, 2023)); // reserva ya caducada
+    MiSistema.RealizarReserva(1, 2, nuevosCli, Fecha(30, 11, 2023)); // Reserva para cancelar
 
-    MiSistema.RealizarReserva(&Lucas, 1, nuevosCli, Fecha(26, 11, 2023)); // reserva ya caducada
-    MiSistema.RealizarReserva(&Lucas, 2, nuevosCli, Fecha(30, 11, 2023)); //Reserva para cancelar
+    MiSistema.BajaTrayecto(1);
+    MiSistema.AltaAgente("Javier", "Mas");
+    MiSistema.AltaTrayecto("Cordoba","Mendoza",3,1700);
+    MiSistema.AltaPaquetePropio("Mendoza",vector<int>(1,4),Fecha(15,12,2023),20,0.1);
+    MiSistema.RealizarReserva(2,3,clientes,Fecha(1,1,2024));
+    MiSistema.PagarReserva(10000,5);
 
-    for (int i = 1; i <= MiSistema.GetCantidadReservas(); i++)
+    /*MiSistema.ListarReservas();
+
+    cout << "Cancelo reserva 4:\n";
+    if (MiSistema.CancelarReserva(4))
     {
-        MiSistema.ListaInfoReservaByCodigo(i);
-        cout << "\n";
+        cout << "Reserva cancelada con exito!\n";
     }
-
+    else
+    {
+        cout << "no se pudo cancelar\n";
+    }
 
     cout << "Elimino reserva 3 :\n";
     MiSistema.EliminarReservasVencidas();
 
-    cout<<"Cancelo reserva 4:\n";
-    if (MiSistema.CancelarReserva(4))
-    {
-        cout<<"Reserva cancelada con exito!\n";
-    }else
-    {
-        cout<<"no se pudo cancelar\n";
-    }
-    
     cout << "Vuelvo a mostrar\n";
 
-    for (int i = 1; i <= MiSistema.GetCantidadReservas(); i++)
-    {
-        MiSistema.ListaInfoReservaByCodigo(i);
-        cout << "\n";
-    }
+    MiSistema.ListarReservas();*/
 
-    cout << "Bonificacion Lucas:" << MiSistema.BonificacionAgente(1,11,2023) << endl;
-    cout << "Recaudacion men 11/2023: " << MiSistema.RecudacionMensual(11, 2023) << endl;
+    MiSistema.InfoReservaByCodigo(5);
 
+    cout << "Bonificacion Lucas:" << MiSistema.BonificacionAgente(1, 12, 2023) << endl;
+    cout << "Recaudacion men 11/2023: " << MiSistema.RecudacionMensual(12, 2023) << endl;
+    cout << "------ FIN PROGRAMA PRUEBA ------\n";
     return 0;
 }

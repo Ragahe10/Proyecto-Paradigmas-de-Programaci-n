@@ -1,3 +1,5 @@
+#ifndef HOTEL_H
+#define HOTEL_H
 #include "Contratacion.cpp"
 
 class Hotel : public Contratacion
@@ -16,7 +18,7 @@ public:
     ~Hotel();
 };
 
-
+#endif
 
 
 

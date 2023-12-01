@@ -1,3 +1,5 @@
+#ifndef VUELO_H
+#define VUELO_H
 #include "Hotel.cpp"
 
 class Vuelo : public Contratacion
@@ -19,4 +21,4 @@ public:
     ~Vuelo();
 };
 
-
+#endif

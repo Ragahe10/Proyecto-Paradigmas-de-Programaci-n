@@ -6,6 +6,7 @@ Paquete::Paquete()
 {
     _autonumerico++;
     _codigo = _autonumerico;
+    _activo = true;
 }
 
 int Paquete::GetCodigo()
@@ -26,6 +27,17 @@ bool Paquete::HayCupo(int CantClientes)
 
 void Paquete::ActualizarCupo(int cantClientes){ }
 
+bool Paquete::EstaActivo()
+{
+    return _activo;
+}
+
+void Paquete::Desactivar()
+{
+    _activo = false;
+}
+
 Paquete::~Paquete()
 {
+    
 }

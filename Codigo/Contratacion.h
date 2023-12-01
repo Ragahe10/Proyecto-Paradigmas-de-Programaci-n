@@ -1,6 +1,6 @@
+#ifndef CONTRATACION_H
+#define CONTRATACION_H
 #include "Cliente.cpp"
-
-class Cliente;
 
 class Contratacion
 {
@@ -14,5 +14,6 @@ public:
     virtual ~Contratacion();
 };
 
+#endif
 
 
